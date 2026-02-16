@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>阿斯蒂芬的平行世界</title>
+    <link>https://example.com</link>
+    <description>秩序中的混沌 · 个人数字花园</description>
+    <language>zh-CN</language>
+    <lastBuildDate>Mon, 16 Feb 2026 09:13:00 GMT</lastBuildDate>
+    
+    <item>
+      <title>平行世界的第一封信</title>
+      <link>https://example.com/blog/parallel-world</link>
+      <guid>https://example.com/blog/parallel-world</guid>
+      <pubDate>Mon, 16 Feb 2026 00:00:00 GMT</pubDate>
+      <description>在秩序与混沌之间，记录第一次信号校准。</description>
+      <content:encoded><![CDATA[
+# 平行世界的第一封信
+
+欢迎来到**阿斯蒂芬的平行世界**。这里是一个被精心维护的数字花园，信号与噪声在秩序中共舞。
+
+<Callout type="info">
+这里是信息提示块，用于说明系统状态或灵感来源。
+</Callout>
+
+## 读者模式与节奏
+
+阅读舱将保持窄幅布局，减少干扰。右侧目录与进度将成为你的导航坐标。
+
+<Callout type="tip">
+试试 Ctrl + K，进入全站指令面板。
+</Callout>
+
+```ts
+export function signalWave(t: number) {
+  return Math.sin(t / 1000) * 0.618;
+}
+```
+
+## 结语
+
+下一步，我们将注入更多文章、热力图数据与交互式时间流。
+]]></content:encoded>
+    </item>
+  </channel>
+</rss>

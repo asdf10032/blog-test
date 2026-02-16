@@ -1,0 +1,122 @@
+@import "tailwindcss";
+
+:root {
+  color-scheme: dark;
+  --background: #0a0a0c;
+  --panel: #121212;
+  --foreground: #e5e5e5;
+  --muted: #a1a1aa;
+  --accent: #d4a853;
+  --accent-secondary: #4ecdc4;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-panel: var(--panel);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-accent-secondary: var(--accent-secondary);
+  --font-sans: var(--font-inter);
+  --font-display: var(--font-jetbrains);
+  --font-serif: var(--font-noto-serif);
+  --font-mono: var(--font-jetbrains);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+}
+
+::selection {
+  background: color-mix(in srgb, var(--accent) 30%, transparent);
+  color: var(--foreground);
+}
+
+.bg-grid {
+  background-image: radial-gradient(
+      color-mix(in srgb, var(--accent-secondary) 18%, transparent) 1px,
+      transparent 1px
+    ),
+    radial-gradient(
+      color-mix(in srgb, var(--accent) 10%, transparent) 1px,
+      transparent 1px
+    );
+  background-size: 120px 120px, 60px 60px;
+  background-position: 0 0, 30px 30px;
+}
+
+.text-glow {
+  text-shadow: 0 0 16px color-mix(in srgb, var(--accent) 40%, transparent);
+}
+
+.link-underline {
+  position: relative;
+}
+
+.link-underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent-secondary), transparent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+.link-underline:hover::after {
+  transform: scaleX(1);
+}
+
+.content-prose h1,
+.content-prose h2,
+.content-prose h3 {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+  color: var(--foreground);
+}
+
+.content-prose p {
+  line-height: 1.85;
+  color: var(--foreground);
+}
+
+.content-prose a {
+  color: var(--accent-secondary);
+}
+
+.content-prose code {
+  font-family: var(--font-mono);
+  font-size: 0.95em;
+}
+
+.content-prose pre {
+  background: color-mix(in srgb, var(--panel) 96%, #000);
+  border: 1px solid color-mix(in srgb, var(--accent-secondary) 25%, transparent);
+  border-radius: 14px;
+  padding: 1.25rem;
+  overflow-x: auto;
+}
+
+.callout {
+  border-radius: 14px;
+  border: 1px solid transparent;
+  padding: 1rem 1.25rem;
+  background: color-mix(in srgb, var(--panel) 92%, #000);
+}
+
+.callout-info {
+  border-color: color-mix(in srgb, var(--accent-secondary) 45%, transparent);
+}
+
+.callout-warning {
+  border-color: color-mix(in srgb, #f97316 50%, transparent);
+}
+
+.callout-tip {
+  border-color: color-mix(in srgb, var(--accent) 50%, transparent);
+}
