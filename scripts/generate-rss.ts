@@ -2,7 +2,7 @@ import fs from "fs";
 import path from "path";
 import { getAllPosts, getPostBySlug } from "../src/lib/content";
 
-const siteUrl = "https://asdfworld.dpdns.org";
+const siteUrl = "https://asdfworld.online";
 
 const escapeXml = (value: string) =>
   value
@@ -16,7 +16,11 @@ const posts = getAllPosts();
 
 const items = posts
   .map((post) => {
-    const { content, meta } = getPostBySlug(post.slug);
+    const entry = getPostBySlug(post.slug);
+    if (!entry) {
+      return "";
+    }
+    const { content, meta } = entry;
     return `
     <item>
       <title>${escapeXml(meta.title)}</title>
@@ -27,6 +31,7 @@ const items = posts
       <content:encoded><![CDATA[${content}]]></content:encoded>
     </item>`;
   })
+  .filter(Boolean)
   .join("");
 
 const rss = `<?xml version="1.0" encoding="UTF-8"?>

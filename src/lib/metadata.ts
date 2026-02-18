@@ -9,7 +9,7 @@ export const defaultMetadata: Metadata = {
     template: `%s · ${siteName}`,
   },
   description,
-  metadataBase: new URL("https://asdfworld.dpdns.org"),
+  metadataBase: new URL("https://asdfworld.online"),
   openGraph: {
     title: siteName,
     description,

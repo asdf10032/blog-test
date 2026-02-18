@@ -1,6 +1,6 @@
 import { getAllPosts } from "@/lib/content";
 
-const siteUrl = "https://asdfworld.dpdns.org";
+const siteUrl = "https://asdfworld.online";
 
 export default function sitemap() {
   const posts = getAllPosts();
