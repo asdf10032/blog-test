@@ -1,8 +1,8 @@
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
-import rehypePrettyCode from "rehype-pretty-code";
 import rehypeSlug from "rehype-slug";
+import type { PluggableList } from "unified";
 
-export const rehypePlugins = [
+export const rehypePlugins: PluggableList = [
   rehypeSlug,
   [
     rehypeAutolinkHeadings,
@@ -11,13 +11,6 @@ export const rehypePlugins = [
       properties: {
         className: ["link-underline"],
       },
-    },
-  ],
-  [
-    rehypePrettyCode,
-    {
-      theme: "one-dark-pro",
-      keepBackground: false,
     },
   ],
 ];

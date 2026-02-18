@@ -5,21 +5,31 @@ import { useState } from "react";
 type PreProps = React.HTMLAttributes<HTMLPreElement> & {
   filename?: string;
   language?: string;
+  "data-raw"?: string;
 };
 
-export default function Pre({ children, filename, language, ...rest }: PreProps) {
+export default function Pre({
+  children,
+  filename,
+  language,
+  "data-raw": dataRaw,
+  ...rest
+}: PreProps) {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = async () => {
     try {
-      const text = rest["data-raw"] as string | undefined;
-      await navigator.clipboard.writeText(text ?? "");
+      await navigator.clipboard.writeText(dataRaw ?? "");
       setCopied(true);
       window.setTimeout(() => setCopied(false), 1200);
     } catch {
       setCopied(false);
     }
   };
+
+  if (!children) {
+    return null;
+  }
 
   return (
     <div className="my-6 overflow-hidden rounded-2xl border border-white/10 bg-panel/90">

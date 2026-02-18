@@ -9,7 +9,6 @@ import { mdxComponents } from "@/components/mdx/MDXComponents";
 import Giscus from "@/components/core/Giscus";
 import { getAllPosts, getPostBySlug } from "@/lib/content";
 import { buildPostMetadata } from "@/lib/metadata";
-import { rehypePlugins } from "@/lib/mdx";
 
 type PageProps = {
   params: { slug: string };
@@ -20,32 +19,38 @@ export function generateStaticParams() {
 }
 
 export function generateMetadata({ params }: PageProps) {
-  const { meta } = getPostBySlug(params.slug);
-  return buildPostMetadata(meta.title, meta.excerpt ?? "");
+  const post = getPostBySlug(params.slug);
+  if (!post) {
+    return buildPostMetadata("未找到", "");
+  }
+  return buildPostMetadata(post.meta.title, post.meta.excerpt ?? "");
 }
 
-export default function PostPage({ params }: PageProps) {
-  const posts = getAllPosts();
-  const current = posts.find((post) => post.slug === params.slug);
+export default async function PostPage({ params }: PageProps) {
+  const post = getPostBySlug(params.slug);
 
-  if (!current) {
+  if (!post) {
     notFound();
   }
 
-  const { content, meta } = getPostBySlug(params.slug);
-
+  const meta = post.meta;
+  const content = post.content ?? "";
   const toc = content
     .split("\n")
     .filter((line) => line.startsWith("## ") || line.startsWith("### "))
     .map((line) => {
       const level = line.startsWith("### ") ? 3 : 2;
       const text = line.replace(/^###?\s/, "").trim();
+      if (!text) {
+        return null;
+      }
       const id = text
         .toLowerCase()
         .replace(/[\s]+/g, "-")
         .replace(/[^\w\u4e00-\u9fa5-]/g, "");
       return { id, text, level };
-    });
+    })
+    .filter((item): item is { id: string; text: string; level: number } => Boolean(item));
 
   return (
     <div className="relative min-h-screen bg-background">
@@ -66,11 +71,7 @@ export default function PostPage({ params }: PageProps) {
               </div>
             </header>
             <div className="content-prose font-serif max-w-none">
-              <MDXRemote
-                source={content}
-                options={{ mdxOptions: { rehypePlugins } }}
-                components={mdxComponents}
-              />
+              <MDXRemote source={content} components={mdxComponents} />
             </div>
             <Giscus
               repo="asdf10032/blog-test"
